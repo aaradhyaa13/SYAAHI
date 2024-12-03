@@ -1,0 +1,142 @@
+body {
+    background-color: black; /* Background color */
+    color: white; /* Text color */
+    font-family: 'Arial', sans-serif; /* Font style */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    display: flex; /* Flex layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    min-height: 100vh; /* Full height of viewport */
+    text-align: center; /* Center align text */
+}
+
+h1 {
+    font-size: 3em; /* Heading size */
+    margin-bottom: 20px; /* Space below heading */
+    color: red; /* Heading color */
+    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 4px; /* Spacing between letters */
+    animation: fadeIn 2s ease-in-out; /* Fade-in effect */
+}
+
+/* Container for the book recommendations */
+.recommendation-box {
+    display: flex; /* Flex layout */
+    justify-content: space-between; /* Space between book sections */
+    background-color: #333; /* Background color */
+    border-radius: 15px; /* Rounded corners */
+    padding: 25px; /* Padding inside box */
+    width: 80%; /* Adjust width for larger screens */
+    max-width: 1000px; /* Set a maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Add shadow */
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+/* Each book's recommendation section */
+.recommendation-section {
+    display: flex; /* Flex layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center content horizontally */
+    width: 48%; /* Set width to almost half of the container */
+    padding: 20px; /* Padding inside each section */
+    background-color: #444; /* Dark background color for sections */
+    border-radius: 10px; /* Rounded corners for sections */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Light shadow for sections */
+    transition: transform 0.3s ease-in-out; /* Smooth transition for hover */
+}
+
+.recommendation-section img {
+    width: 150px; /* Set width for book cover images */
+    height: 200px; /* Set height for book cover images */
+    border-radius: 10px; /* Rounded corners for images */
+    margin-bottom: 15px; /* Space below image */
+    transition: transform 0.5s; /* Smooth rotation transition */
+}
+
+.recommendation-section:hover img {
+    transform: rotate(360deg); /* Rotate image on hover */
+}
+
+.recommendation-section p {
+    font-size: 1.5em; /* Font size for book title */
+    color: white; /* Text color */
+    font-weight: bold; /* Bold text */
+    margin-bottom: 10px; /* Space below title */
+}
+
+.recommendation-section ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+    color: white; /* Text color */
+}
+
+.recommendation-section li {
+    font-size: 1.2em; /* Font size for list items */
+    margin: 5px 0; /* Space between list items */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    0% { opacity: 0; } /* Start fully transparent */
+    100% { opacity: 1; } /* End fully visible */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .recommendation-box {
+        flex-direction: column; /* Stack sections vertically */
+        align-items: center; /* Center align sections */
+    }
+
+    .recommendation-section {
+        width: 100%; /* Full width on smaller screens */
+        margin-bottom: 20px; /* Space below sections */
+    }
+
+    .recommendation-section img {
+        width: 100px; /* Smaller image width */
+        height: 150px; /* Smaller image height */
+    }
+
+    .recommendation-section p {
+        font-size: 1.2em; /* Smaller font size for mobile */
+    }
+}
+
+/* Styling for the top book list */
+.book-list {
+    display: flex; /* Flexbox layout */
+    flex-wrap: wrap; /* Allow wrapping */
+    justify-content: center; /* Center alignment */
+    list-style-type: none; /* No bullets */
+    padding: 0; /* No padding */
+    margin: 0; /* No margin */
+    gap: 20px; /* Space between book boxes */
+    width: 80%; /* Full width */
+}
+
+/* Individual book list items */
+.book-list li {
+    display: flex; /* Flex layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center alignment */
+    margin: 20px; /* Margin around items */
+    background-color: #333; /* Background color for items */
+    border-radius: 15px; /* Rounded corners */
+    padding: 25px; /* Padding inside items */
+    width: 30%; /* Adjust width */
+    transition: transform 0.3s ease-in-out; /* Smooth transform */
+    animation: slideIn 1.5s ease-in-out; /* Slide-in animation */
+    box-sizing: border-box; /* Include padding in width calculation */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow effect */
+}
+
+/* Hover effect for book items */
+.book-list li:hover {
+    transform: scale(1.05); /* Scale on hover */
+    background-color: red; /* Change background color */
+}
+
+/* 

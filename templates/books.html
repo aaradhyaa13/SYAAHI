@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendations</title>
+    <link rel="stylesheet" href="{% static 'css/books.css' %}">
+    <style>
+    /* Search Bar Styling */
+    .search-bar {
+        text-align: center;
+        padding: 20px;
+        background-color: black;
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .search-bar input[type="text"] {
+        width: 60%;
+        padding: 10px;
+        border: 2px solid red;
+        border-radius: 6px;
+        font-size: 16px;
+        color: white;
+        background-color: #1a1a1a;
+        transition: border-color 0.3s;
+    }
+
+    .search-bar input[type="text"]:focus {
+        border-color: #333;
+        outline: none;
+    }
+
+    .search-bar button {
+        padding: 10px 20px;
+        border: 2px solid red;
+        background-color: #333;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    .search-bar button:hover {
+        background-color: red;
+        border-color: white;
+    }
+
+    body {
+        background-color: black;
+        color: white;
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+        color: red;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        animation: fadeIn 2s ease-in-out;
+    }
+
+    .top-books {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 80%;
+    }
+
+    .book-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .book-list li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+        background-color: #333;
+        border-radius: 15px;
+        padding: 25px;
+        width: 30%;
+        transition: transform 0.3s ease-in-out;
+        animation: slideIn 1.5s ease-in-out;
+        box-sizing: border-box;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        animation-fill-mode: forwards;
+    }
+
+    .book-list li:hover {
+        transform: scale(1.05);
+        background-color: red;
+    }
+
+    .book-list img {
+        width: 150px;
+        height: 200px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        transition: transform 0.5s;
+    }
+
+    .book-list li:hover img {
+        transform: rotate(360deg);
+    }
+
+    .book-list p {
+        font-size: 1.5em;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+        0% { transform: translateX(-100%); opacity: 0; }
+        100% { transform: translateX(0); opacity: 1; }
+    }
+
+    .book-list li:nth-child(1) { animation-delay: 0.1s; }
+    .book-list li:nth-child(2) { animation-delay: 0.2s; }
+    .book-list li:nth-child(3) { animation-delay: 0.3s; }
+    .book-list li:nth-child(4) { animation-delay: 0.4s; }
+    .book-list li:nth-child(5) { animation-delay: 0.5s; }
+    .book-list li:nth-child(6) { animation-delay: 0.6s; }
+    .book-list li:nth-child(7) { animation-delay: 0.7s; }
+    .book-list li:nth-child(8) { animation-delay: 0.8s; }
+    .book-list li:nth-child(9) { animation-delay: 0.9s; }
+    .book-list li:nth-child(10) { animation-delay: 1s; }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2em;
+        }
+
+        .book-list {
+            justify-content: center;
+        }
+
+        .book-list li {
+            width: 80%;
+        }
+
+        .book-list img {
+            width: 100px;
+            height: 150px;
+        }
+
+        .book-list p {
+            font-size: 1.2em;
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- Search Bar Section -->
+    <div class="search-bar">
+        <form action="/recommend_books/" method="GET">
+            <input type="text" name="query" placeholder="Search for books" required>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="top-books">
+        <h1>Recommended Books</h1>
+        <div class="recommendation-box">
+            <!-- The Notebook Recommendations -->
+            <div class="recommendation-section">
+                <p>If you liked The Notebook:</p>
+                <img src="https://upload.wikimedia.org/wikipedia/en/8/86/Posternotebook.jpg" alt="The Notebook">
+                <ul>
+                    {% for book in thenotebook_recommendations %}
+                        <li>{{ book }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- To Kill a Mockingbird Recommendations -->
+            <div class="recommendation-section">
+                <p>If you liked To Kill a Mockingbird:</p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg/330px-To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg" alt="To Kill a Mockingbird">
+                <ul>
+                    {% for book in tokillamockingbird_recommendations %}
+                        <li>{{ book }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top 10 Books Section -->
+    <div class="recommended-books">
+        <h1>Top 10 Books</h1>
+        <ul class="book-list">
+            <ul class="book-list">
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/5/51/1984_first_edition_cover.jpg" alt="1984">
+                <p>1984 by George Orwell</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg/330px-To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg" alt="To Kill a Mockingbird">
+                <p>To Kill a Mockingbird by Harper Lee</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/The_Great_Gatsby_Cover_1925_Retouched.jpg/330px-The_Great_Gatsby_Cover_1925_Retouched.jpg" alt="The Great Gatsby">
+                <p>The Great Gatsby by F. Scott Fitzgerald</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/a/a0/Cien_a%C3%B1os_de_soledad_%28book_cover%2C_1967%29.jpg" alt="One Hundred Years of Solitude">
+                <p>One Hundred Years of Solitude by Gabriel García Márquez</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Moby-Dick_FE_title_page.jpg/330px-Moby-Dick_FE_title_page.jpg" alt="Moby *****">
+                <p>Moby ***** by Herman Melville</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Tolstoy_-_War_and_Peace_-_first_edition%2C_1869.jpg/330px-Tolstoy_-_War_and_Peace_-_first_edition%2C_1869.jpg" alt="War and Peace">
+                <p>War and Peace by Leo Tolstoy</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/PrideAndPrejudiceTitlePage.jpg/330px-PrideAndPrejudiceTitlePage.jpg" alt="Pride and Prejudice">
+                <p>Pride and Prejudice by Jane Austen</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/The_Catcher_in_the_Rye_%281951%2C_first_edition_cover%29.jpg/330px-The_Catcher_in_the_Rye_%281951%2C_first_edition_cover%29.jpg" alt="The Catcher in the Rye">
+                <p>The Catcher in the Rye by J.D. Salinger</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Odyssey-crop.jpg/330px-Odyssey-crop.jpg" alt="The Odyssey">
+                <p>The Odyssey by Homer</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/4/4b/Crimeandpunishmentcover.png" alt="Crime and Punishment">
+                <p>Crime and Punishment by Fyodor Dostoevsky</p>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>

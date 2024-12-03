@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}   
+    <style>
+    /* Search Bar Styling */
+.search-bar {
+    text-align: center; /* Center align the text */
+    padding: 20px; /* Padding around the search bar */
+    background-color: black; /* Background color */
+    width: 100%; /* Set width to 100% of the parent container */
+    max-width: 800px; /* Optional: Set a maximum width for larger screens */
+    margin: 0 auto; /* Center the search bar horizontally */
+}
+
+
+.search-bar input[type="text"] {
+    width: 60%;
+    padding: 10px;
+    border: 2px solid red;
+    border-radius: 6px;
+    font-size: 16px;
+    color: white;
+    background-color: #1a1a1a;
+    transition: border-color 0.3s;
+}
+
+.search-bar input[type="text"]:focus {
+    border-color: #333;
+    outline: none;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    border: 2px solid red;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.search-bar button:hover {
+    background-color: red;
+    border-color: white;
+}
+    body {
+        background-color: black;
+        color: white;
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh; /* Ensures the body takes the full height of the screen */
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+        color: red; /* Heading color */
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        animation: fadeIn 2s ease-in-out;
+    }
+
+    /* Flexbox container for movies */
+    .top-movies {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* Aligns the items to the center */
+        width: 80%;
+    }
+
+    .movie-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        gap: 20px; /* Spacing between movie boxes */
+        width: 100%;
+    }
+
+    .movie-list li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+        background-color: #333;
+        border-radius: 15px;
+        padding: 25px; /* Increased padding for bigger boxes */
+        width: 30%; /* Adjust width */
+        transition: transform 0.3s ease-in-out;
+        animation: slideIn 1.5s ease-in-out;
+        box-sizing: border-box;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Add shadow */
+        opacity: 0;
+        animation-fill-mode: forwards;
+    }
+
+    /* Hover effect: scale and shadow */
+    .movie-list li:hover {
+        transform: scale(1.05);
+        background-color: red; /* Changed to red */
+    }
+
+    /* Image styling */
+    .movie-list img {
+        width: 150px; /* Adjust image size */
+        height: 200px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        transition: transform 0.5s;
+    }
+
+    /* Image rotation on hover */
+    .movie-list li:hover img {
+        transform: rotate(360deg);
+    }
+
+    /* Movie title styling */
+    .movie-list p {
+        font-size: 1.5em;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    /* Slide-in animation */
+    @keyframes slideIn {
+        0% { transform: translateX(-100%); opacity: 0; }
+        100% { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Cascading animation delay for each box */
+    .movie-list li:nth-child(1) { animation-delay: 0.1s; }
+    .movie-list li:nth-child(2) { animation-delay: 0.2s; }
+    .movie-list li:nth-child(3) { animation-delay: 0.3s; }
+    .movie-list li:nth-child(4) { animation-delay: 0.4s; }
+    .movie-list li:nth-child(5) { animation-delay: 0.5s; }
+    .movie-list li:nth-child(6) { animation-delay: 0.6s; }
+    .movie-list li:nth-child(7) { animation-delay: 0.7s; }
+    .movie-list li:nth-child(8) { animation-delay: 0.8s; }
+    .movie-list li:nth-child(9) { animation-delay: 0.9s; }
+    .movie-list li:nth-child(10) { animation-delay: 1s; }
+
+    /* Responsive design for different screen sizes */
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2em;
+        }
+
+        .movie-list {
+            justify-content: center; /* Centered alignment on smaller screens */
+        }
+
+        .movie-list li {
+            width: 80%; /* Full width on smaller screens */
+        }
+
+        .movie-list img {
+            width: 100px;
+            height: 150px;
+        }
+
+        .movie-list p {
+            font-size: 1.2em;
+        }
+    }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendations</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/movies.css' %}">
+
+</head>
+<body>
+      <!-- Search Bar Section -->
+    <div class="search-bar">
+        <form action="/recommend_books/" method="GET">
+            <input type="text" name="query" placeholder="Search for movies" required>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Top 10 Movies Section -->
+    <div class="top-movies">
+        <h1>Recommended Movies</h1>
+        <div class="recommendation-box">
+    <!-- Batman Begins Recommendations -->
+    <div class="recommendation-section">
+        <p>If you liked Batman Begins:</p>
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/af/Batman_Begins_Poster.jpg" alt="Batman Begins">
+        <ul>
+            {% for movie in batman_recommendations %}
+                <li>{{ movie }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Avatar Recommendations -->
+    <div class="recommendation-section">
+        <p>If you liked Avatar:</p>
+        <img src="https://upload.wikimedia.org/wikipedia/en/d/d6/Avatar_%282009_film%29_poster.jpg" alt="Avatar">
+
+        <ul>
+            {% for movie in avatar_recommendations %}
+                <li>{{ movie }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+</div>
+
+        <h1>TOP 10 MOVIES OF ALL TIME</h1>
+        <ul class="movie-list">
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/1/1c/Godfather_ver1.jpg" alt="The Godfather">
+                <p>The Godfather</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg" alt="The Shawshank Redemption">
+                <p>The Shawshank Redemption</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/3/38/Schindler%27s_List_movie.jpg" alt="Schindler's List">
+                <p>Schindler's List</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/3/3b/Pulp_Fiction_%281994%29_poster.jpg" alt="Pulp Fiction">
+                <p>Pulp Fiction</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Tloftr-logo.svg/330px-Tloftr-logo.svg.png" alt="The Lord of the Rings">
+                <p>The Lord of the Rings</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/6/67/Forrest_Gump_poster.jpg" alt="Forrest Gump">
+                <p>Forrest Gump</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Star_Wars_Yellow_Logo.svg/300px-Star_Wars_Yellow_Logo.svg.png" alt="Star Wars">
+                <p>Star Wars</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/1/1c/The_Dark_Knight_%282008_film%29.jpg" alt="The Dark Knight">
+                <p>The Dark Knight</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/f/fc/Fight_Club_poster.jpg" alt="Fight Club">
+                <p>Fight Club</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/7/7b/Goodfellas.jpg" alt="Fight Club">
+                <p>Goodfellas</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/2/2e/Inception_%282010%29_theatrical_poster.jpg" alt="Fight Club">
+                <p>Inception</p>
+            </li>
+            <li>
+                <img src="https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg" alt="Goodfellas">
+                <p>Interstellar</p>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>

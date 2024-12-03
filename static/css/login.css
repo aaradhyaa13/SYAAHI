@@ -1,0 +1,83 @@
+body {
+    background-image: url('../img/loginbg.jpg');
+    color: white; /* Text color */
+    font-family: 'Arial', sans-serif; /* Font family */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    display: flex; /* Flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full height */
+}
+
+.form-container {
+    background-color: #2c2c2c; /* Darker background for the form */
+    padding: 40px; /* Padding inside the form */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); /* Shadow effect */
+    width: 300px; /* Fixed width for the form */
+    text-align: left; /* Left-align text inside the container */
+}
+
+h2 {
+    color: red; /* Header color */
+    margin-bottom: 20px; /* Space below the header */
+    font-size: 2em; /* Font size for header */
+    text-transform: uppercase; /* Uppercase text */
+    padding-left: 10px; /* Add padding to the left */
+}
+
+label {
+    display: block; /* Block-level for labels */
+    margin-bottom: 8px; /* Space below labels */
+    color: white; /* Label color */
+    font-weight: bold; /* Bold text for labels */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%; /* Full width inputs */
+    padding: 10px; /* Padding inside inputs */
+    margin-bottom: 20px; /* Space below inputs */
+    border: 2px solid red; /* Red border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #444; /* Darker background for inputs */
+    color: white; /* Text color for inputs */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: red; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+button {
+    background-color: red; /* Button background color */
+    color: white; /* Button text color */
+    padding: 10px 20px; /* Padding inside button */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    font-size: 1em; /* Font size */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+button:hover {
+    background-color: darkred; /* Darker red on hover */
+}
+
+p {
+    margin-top: 20px; /* Space above paragraph */
+    color: white; /* Text color */
+}
+
+a {
+    color: red; /* Link color */
+    text-decoration: none; /* Remove underline */
+}
+
+a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
